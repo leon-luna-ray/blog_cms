@@ -32,5 +32,5 @@ EXPOSE 8000
 
 CMD set -xe; \
     python manage.py collectstatic --noinput; \
-    # python manage.py migrate --noinput; \
+    python manage.py migrate --noinput; \
     gunicorn blog_cms.wsgi:application --bind 0.0.0.0:8000
