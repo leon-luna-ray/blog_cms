@@ -6,8 +6,8 @@
 ### Backend
 - Django
 - Docker
-- Fl0
 - Python
+- Railway
 - Wagtail
 
 ### Frontend
