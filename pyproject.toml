@@ -12,6 +12,7 @@ gunicorn = "^21.2.0"
 python = "^3.10"
 python-webpack-boilerplate = "^1.0.2"
 wagtail = "^5.2.2"
+psycopg2 = "^2.9.9"
 
 
 [build-system]
