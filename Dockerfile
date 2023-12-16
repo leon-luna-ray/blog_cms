@@ -20,7 +20,7 @@ WORKDIR /code/
 
 COPY ./manage.py ./manage.py
 COPY ./pyproject.toml ./pyproject.toml
-# COPY ./README.md ./README.md
+COPY ./README.md ./README.md
 COPY ./blog_cms/ ./blog_cms/
 COPY ./apps/ ./apps/
 
