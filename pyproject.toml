@@ -1,15 +1,17 @@
 [tool.poetry]
-name = "wagtail-blog"
-version = "0.1.0"
+name = "blog-cms"
+version = "1.0.0"
 description = ""
 authors = ["Ray Luna <leon.luna.ray@gmail.com>"]
 readme = "README.md"
 packages = [{include = "blog_cms"}]
 
 [tool.poetry.dependencies]
+django = "^5.0"
+gunicorn = "^21.2.0"
 python = "^3.10"
-wagtail = "^5.2.2"
 python-webpack-boilerplate = "^1.0.2"
+wagtail = "^5.2.2"
 
 
 [build-system]
