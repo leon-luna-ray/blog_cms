@@ -4,4 +4,5 @@ from wagtail.models import Page
 
 
 class HomePage(Page):
-    pass
+    max_count = 1
+    template = 'home/home_page.html'

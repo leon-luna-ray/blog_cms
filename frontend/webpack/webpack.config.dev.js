@@ -25,6 +25,11 @@ module.exports = merge(common, {
     devMiddleware: {
       writeToDisk: true,
     },
+    watchFiles: [
+      Path.join(__dirname, '../../blog_cms/**/*.py'),
+      Path.join(__dirname, '../../blog_cms/**/*.html'),
+      Path.join(__dirname, '../../apps/*/templates/**/*.html'),
+    ],
   },
   plugins: [
     new Webpack.DefinePlugin({
