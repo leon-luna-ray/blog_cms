@@ -7,11 +7,29 @@ const projectPaths = [
 ];
 
 const contentPaths = [...projectPaths];
-console.log(`tailwindcss will scan ${contentPaths}`);
+
 module.exports = {
   content: contentPaths,
+  darkMode: 'class',
   theme: {
-    extend: {},
+    container: {
+      padding: {
+        DEFAULT: '1.5rem',
+        md: '2rem',
+        lg: '4rem',
+      },
+      center: true,
+    },
+    extend: {
+      colors: {
+        primary: '#e00097',
+      },
+      // fontFamily: {
+      //   dm: ['DM Sans', 'sans-serif'],
+      //   lora: ['Lora', 'serif'],
+      //   orbitron: ['Orbitron', 'sans-serif'],
+      // },
+    },
   },
   plugins: [],
 }
