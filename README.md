@@ -6,7 +6,6 @@
 ### Backend
 - Django
 - Docker
-- Postgres
 - Python
 - Railway
 - Wagtail
