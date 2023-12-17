@@ -1,10 +1,12 @@
-FROM node:16-stretch-slim as frontend-builder
+FROM node:18-stretch-slim as frontend-builder
 
 WORKDIR /app
 COPY . .
 
-RUN npm install
-RUN npm run build
+RUN npm install -g yarn
+
+RUN yarn install
+RUN yarn build
 
 ################################################################################
 FROM python:3.10-slim-buster
