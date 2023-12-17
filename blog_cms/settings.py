@@ -2,15 +2,21 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
-
 load_dotenv()
 
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(",")
+DATABASE_URL = os.getenv("DATABASE_URL")
 DEBUG = int(os.getenv("DEBUG", default=1))
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-
-
+if not DEBUG:
+    print('🐝 NOT DEBUG')
+    CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(',')
+    print(CSRF_TRUSTED_ORIGINS)
+    print(ALLOWED_HOSTS)
 
 # Application definition
 
@@ -76,7 +82,7 @@ WSGI_APPLICATION = "blog_cms.wsgi.application"
 
 # Database
 
-DATABASE_URL=os.getenv('DATABASE_URL')
+
 
 DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
@@ -153,10 +159,3 @@ WAGTAILSEARCH_BACKENDS = {
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
 
-if not DEBUG:
-    print('🐝 NOT DEBUG')
-    ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(',')
-    CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(',')
-    
-    print(CSRF_TRUSTED_ORIGINS)
-    print(ALLOWED_HOSTS)
