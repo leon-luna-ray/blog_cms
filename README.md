@@ -15,5 +15,4 @@
 - HTML5
 - JavaScript
 - Sass
-- TailwindCSS
 - Webpack
