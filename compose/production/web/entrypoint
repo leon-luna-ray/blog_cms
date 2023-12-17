@@ -3,6 +3,7 @@
 set -o errexit
 set -o pipefail
 set -o nounset
+set -xe
 
 postgres_ready() {
 python << END
@@ -25,9 +26,6 @@ done
 >&2 echo '🚀🛸🚀🛸🚀'
 >&2 echo '💽 PostgreSQL is available'
 
-exec "$@"
-
-python /app/manage.py collectstatic --noinput
-python /app/manage.py migrate
-
-/usr/local/bin/gunicorn blog_cms.wsgi:application --bind 0.0.0.0:8000 --chdir=/app
+python manage.py migrate --noinput
+python manage.py collectstatic --noinput --clear
+exec gunicorn blog_cms.wsgi:application --log-level error
