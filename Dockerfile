@@ -2,6 +2,7 @@
 FROM node:18-bullseye as frontend-builder
 WORKDIR /app
 COPY . .
+WORKDIR /app/frontend
 RUN yarn install && yarn build
 
 # Stage 2: Main Image
