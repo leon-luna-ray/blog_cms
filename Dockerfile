@@ -1,16 +1,11 @@
+# Stage 1: Frontend Builder
 FROM node:18-bullseye as frontend-builder
-
 WORKDIR /app
 COPY . .
+RUN npm install -g yarn && yarn install && yarn build
 
-RUN npm install -g yarn
-
-RUN yarn install
-RUN yarn build
-
-################################################################################
+# Stage 2: Main Image
 FROM python:3.10-slim-buster
-
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
@@ -43,16 +38,17 @@ RUN chown django /start
 
 WORKDIR /app
 
-# avoid 'permission denied' error
+# Avoid 'permission denied' error
 RUN mkdir /app/static
 RUN mkdir /app/media
 
-# copy project code
+# Copy project code
 COPY . .
+
+# Copy the built frontend from the frontend-builder stage
 COPY --from=frontend-builder /app/frontend/build /app/frontend/build
 
 RUN chown -R django:django /app
-
 USER django
 
 ENTRYPOINT ["/entrypoint"]
