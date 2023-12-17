@@ -70,21 +70,14 @@ WSGI_APPLICATION = "blog_cms.wsgi.application"
 
 
 # Database
-# print(os.getenv("SQL_DATABASE"))
-# DATABASES = {
-#     "default":{
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "blog_cms-db-1",
-#         "USER": "postgres",
-#         "PASSWORD": "root",
 
-#     }
-# }
+DATABASE_URL=os.getenv('DATABASE_URL')
+
 DATABASES = {
-    "default": dj_database_url.config(default='postgres://postgres:root@blog-db:5432/blog_cms_www', conn_max_age=1800),
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
+
 # Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
