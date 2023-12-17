@@ -1,28 +1,33 @@
-version: '3'
+version: "3.7"
 
 services:
-  www:
-    restart: on-failure
-    image: blog_cms
-    build: .
-    container_name: blog_cms
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/local/web/Dockerfile
+    image: blog_cms_web
+    command: /start
     volumes:
-      - ./blog_cms:/app/blog_cms
-      - ./apps:/app/apps
-      - ./.var/media:/srv/media
-    command: gunicorn -b 0.0.0.0:8000 -w 4 blog_cms.wsgi --reload
+      - .:/app
     ports:
       - 8000:8000
-#   db:
-#     image: postgres
-#     container_name: blog-cms-db
-#     environment:
-#         POSTGRES_PASSWORD: root
-#         POSTGRES_DB: blog_cms
-#     volumes:
-#       - db-data:/var/lib/postgresql/data 
-#     ports:
-#       - 5432:5432
+    env_file:
+      - ./.env/.dev-sample
+    depends_on:
+      - db
 
-# volumes:
-#   db-data:
+  db:
+    image: postgres
+    container_name: blog-db
+    environment:
+        POSTGRES_PASSWORD: root
+        POSTGRES_DB: blog_cms_www
+    volumes:
+      - db-data:/var/lib/postgresql/data 
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env/.dev-sample
+
+volumes:
+  db-data:
