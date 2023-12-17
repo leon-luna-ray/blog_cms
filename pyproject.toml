@@ -8,14 +8,14 @@ packages = [{include = "blog_cms"}]
 
 [tool.poetry.dependencies]
 django = ">=4.0, <5.0"
+django-database-url = "^1.0.3"
 gunicorn = "^21.2.0"
+psycopg2 = "^2.9.9"
 python = "^3.10"
+python-dotenv = "^1.0.0"
 python-webpack-boilerplate = "^1.0.2"
 wagtail = "^5.2.2"
-psycopg2 = "^2.9.9"
-django-database-url = "^1.0.3"
 whitenoise = "^6.6.0"
-python-dotenv = "^1.0.0"
 
 
 [build-system]

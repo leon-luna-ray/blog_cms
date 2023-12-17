@@ -14,6 +14,6 @@
 ### Frontend
 - HTML5
 - JavaScript
-- SCSS
+- Sass
 - TailwindCSS
 - Webpack
