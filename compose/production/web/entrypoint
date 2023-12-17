@@ -27,4 +27,4 @@ done
 
 python manage.py migrate --noinput
 python manage.py collectstatic --noinput --clear
-gunicorn blog_cms.wsgi:application --log-level error
+/usr/local/bin/gunicorn blog_cms.wsgi:application --chdir=/app
