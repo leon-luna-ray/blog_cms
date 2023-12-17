@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar %}
+{% load static wagtailcore_tags wagtailuserbar webpack_loader %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/blog_cms.css' %}">
-
+        {% stylesheet_pack 'app' %}
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
@@ -30,8 +29,7 @@
         {% block content %}{% endblock %}
 
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/blog_cms.js' %}"></script>
-
+        {% javascript_pack 'app' %}
         {% block extra_js %}
         {# Override this in templates to add extra javascript #}
         {% endblock %}

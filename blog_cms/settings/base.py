@@ -20,8 +20,9 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 load_dotenv()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+DEBUG = int(os.environ.get("DEBUG", default=1))
+
+
 
 
 # Application definition
@@ -167,3 +168,7 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
+
+if not DEBUG:
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")

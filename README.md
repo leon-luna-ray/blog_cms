@@ -11,6 +11,8 @@
 - Wagtail
 
 ### Frontend
-- CSS3
 - HTML5
 - JavaScript
+- Sass
+- TailwindCSS
+- Webpack
