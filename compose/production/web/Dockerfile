@@ -31,12 +31,12 @@ RUN pip install poetry && \
     poetry config virtualenvs.create false && \
     poetry install --no-dev --no-interaction --no-ansi
 
-COPY ./compose/production/web/entrypoint /entrypoint
+COPY .entrypoint ./entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 RUN chown django /entrypoint
 
-COPY ./compose/production/web/start /start
+COPY ./start ./start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 RUN chown django /start
