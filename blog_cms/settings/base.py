@@ -154,7 +154,7 @@ WAGTAILSEARCH_BACKENDS = {
 WAGTAILADMIN_BASE_URL = "http://example.com"
 
 if not DEBUG:
-    print('🐝 NOT DEBUG 🐝')
+    print('🐝 NOT DEBUG')
     SECRET_KEY = os.getenv("SECRET_KEY")
     ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
     CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(",")
