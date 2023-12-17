@@ -12,7 +12,11 @@ import psycopg2
 
 try:
     psycopg2.connect(
-        ${DATABASE_URL}
+        dbname="wagtail_blog",
+        user="wagtail_blog",
+        password="wagtail_blog",
+        host="db",
+        port=5432,
     )
 except psycopg2.OperationalError:
     sys.exit(-1)
