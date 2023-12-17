@@ -22,8 +22,12 @@ until postgres_ready; do
   >&2 echo 'Waiting for PostgreSQL to become available...'
   sleep 1
 done
->&2 echo ${DATABASE_URL}
->&2 echo 'PostgreSQL is available ${DATABASE_URL}'
 >&2 echo '🚀🛸🚀🛸🚀'
+>&2 echo '💽 PostgreSQL is available'
 
 exec "$@"
+
+python /app/manage.py collectstatic --noinput
+python /app/manage.py migrate
+
+/usr/local/bin/gunicorn blog_cms.wsgi:application --bind 0.0.0.0:8000 --chdir=/app
