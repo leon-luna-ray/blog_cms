@@ -35,7 +35,7 @@ RUN chown django /entrypoint
 WORKDIR /app
 
 # Avoid 'permission denied' error
-RUN mkdir /app/staticfiles
+RUN mkdir /app/static
 RUN mkdir /app/media
 
 # Copy project code
