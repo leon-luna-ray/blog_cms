@@ -23,9 +23,8 @@ until postgres_ready; do
   >&2 echo 'Waiting for PostgreSQL to become available...'
   sleep 1
 done
->&2 echo '🚀🛸🚀🛸🚀'
 >&2 echo '💽 PostgreSQL is available'
 
 python manage.py migrate --noinput
 python manage.py collectstatic --noinput --clear
-exec gunicorn blog_cms.wsgi:application --log-level error
+gunicorn blog_cms.wsgi:application --log-level error
