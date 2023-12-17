@@ -2,7 +2,7 @@
 FROM node:18-bullseye as frontend-builder
 WORKDIR /app
 COPY . .
-RUN npm install -g yarn && yarn install && yarn build
+RUN yarn install && yarn build
 
 # Stage 2: Main Image
 FROM python:3.10-slim-buster
