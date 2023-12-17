@@ -1,7 +1,7 @@
 # Stage 1: Frontend Builder
 FROM node:18-bullseye as frontend-builder
 WORKDIR /app
-COPY ../../.. .
+COPY . .
 WORKDIR /app/frontend
 RUN yarn install && yarn build
 
@@ -34,14 +34,10 @@ RUN chown django /entrypoint
 
 WORKDIR /app
 
-# Avoid 'permission denied' error
 RUN mkdir /app/static
 RUN mkdir /app/media
 
-# Copy project code
-COPY ../../.. .
-
-# Copy the built frontend from the frontend-builder stage
+COPY . .
 COPY --from=frontend-builder /app/frontend/build /app/frontend/build
 
 RUN chown -R django:django /app
