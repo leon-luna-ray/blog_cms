@@ -1,4 +1,4 @@
-FROM node:18-stretch-slim as frontend-builder
+FROM node:18-bullseye as frontend-builder
 
 WORKDIR /app
 COPY . .
