@@ -1,42 +1,58 @@
-FROM python:3.10-alpine
+FROM node:18-stretch-slim as frontend-builder
 
-RUN apk add --no-cache shadow
+WORKDIR /app
+COPY . .
 
-RUN useradd wagtail
+RUN npm install -g yarn
 
-EXPOSE 8000
+RUN yarn install
+RUN yarn build
 
-ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
+################################################################################
+FROM python:3.10-slim-buster
 
-RUN apk update && apk add --no-cache \
-    build-base \
-    postgresql-dev \
-    mariadb-connector-c-dev \
-    jpeg-dev \
-    zlib-dev \
-    libwebp-dev
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-WORKDIR /app/
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    libmariadbclient-dev \
+    libjpeg62-turbo-dev \
+    zlib1g-dev \
+    libwebp-dev \
+ && rm -rf /var/lib/apt/lists/*
 
-COPY ./manage.py ./manage.py
+RUN addgroup --system django \
+    && adduser --system --ingroup django django
+
 COPY ./pyproject.toml ./pyproject.toml
-COPY ./README.md ./README.md
-COPY ./blog_cms/ ./blog_cms/
-COPY ./apps/ ./apps/
-
-
 RUN pip install poetry && \
     poetry config virtualenvs.create false && \
     poetry install --no-dev --no-interaction --no-ansi
 
+COPY ./compose/production/web/entrypoint /entrypoint
+RUN sed -i 's/\r$//g' /entrypoint
+RUN chmod +x /entrypoint
+RUN chown django /entrypoint
 
-RUN chown wagtail:wagtail /app
+COPY ./compose/production/web/start /start
+RUN sed -i 's/\r$//g' /start
+RUN chmod +x /start
+RUN chown django /start
 
-COPY --chown=wagtail:wagtail . .
+WORKDIR /app
 
-USER wagtail
+# avoid 'permission denied' error
+RUN mkdir /app/static
+RUN mkdir /app/media
 
-RUN mkdir /app/staticfiles
+# copy project code
+COPY . .
+COPY --from=frontend-builder /app/frontend/build /app/frontend/build
 
-CMD set -xe; python manage.py migrate --noinput && python manage.py collectstatic --noinput --clear && gunicorn blog_cms.wsgi:application
+RUN chown -R django:django /app
+
+USER django
+
+ENTRYPOINT ["/entrypoint"]
