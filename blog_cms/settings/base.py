@@ -70,18 +70,19 @@ WSGI_APPLICATION = "blog_cms.wsgi.application"
 
 
 # Database
-print(os.getenv("SQL_DATABASE"))
-DATABASES = {
-    "default":{
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "wagtail_blog",
-        "USER": "wagtail_blog",
-        "PASSWORD": "wagtail_blog",
-        "HOST": "db",
-        "PORT": 5432,
-    }
-}
+# print(os.getenv("SQL_DATABASE"))
+# DATABASES = {
+#     "default":{
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "blog_cms-db-1",
+#         "USER": "postgres",
+#         "PASSWORD": "root",
 
+#     }
+# }
+DATABASES = {
+    "default": dj_database_url.config(default='postgres://postgres:root@blog-db:5432/blog_cms_www', conn_max_age=1800),
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
