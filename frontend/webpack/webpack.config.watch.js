@@ -43,7 +43,7 @@ module.exports = merge(common, {
         loader: "babel-loader",
       },
       {
-        test: /\.s?css$/i,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {

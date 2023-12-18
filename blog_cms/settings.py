@@ -13,10 +13,7 @@ DEBUG = int(os.getenv("DEBUG", default=1))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 if not DEBUG:
-    print('🐝 NOT DEBUG')
     CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(',')
-    print(CSRF_TRUSTED_ORIGINS)
-    print(ALLOWED_HOSTS)
 
 # Application definition
 
