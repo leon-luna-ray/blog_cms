@@ -6,7 +6,6 @@ const WebpackAssetsManifest = require("webpack-assets-manifest");
 
 const getEntryObject = () => {
   const entries = {};
-  // for javascript/typescript entry file
   glob
     .sync(Path.join(__dirname, "../src/application/*.{js,ts}"))
     .forEach((path) => {
