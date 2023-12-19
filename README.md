@@ -12,6 +12,7 @@
 - Wagtail
 
 ### Frontend
+- Alpine.js
 - HTML5
 - JavaScript
 - Sass
