@@ -20,6 +20,7 @@ if not DEBUG:
 INSTALLED_APPS = [
     "apps.home",
     "apps.search",
+    "apps.blog",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
